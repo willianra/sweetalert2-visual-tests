@@ -12,6 +12,7 @@
   "author": "Limon Monte <limon.monte@gmail.com> (https://limonte.github.io)",
   "scripts": {
     "test": "node visual-tests.js",
+    "update-screenshots": "node visual-tests.js --update",
     "clean": "rm screens/*-test.png screens/*-diff.png"
   },
   "license": "MIT"

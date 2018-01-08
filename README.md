@@ -4,6 +4,9 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/sweetalert2/sweetalert2-visual-tests.svg)](https://greenkeeper.io/)
 
 ```sh
-yarn
-yarn run test
+# Run tests
+yarn test
+
+# Update screenshots
+yarn run update-screenshots
 ```
