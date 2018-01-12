@@ -539,6 +539,10 @@ strip-eof@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
 
+sweetalert2@7.3.5:
+  version "7.3.5"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.3.5.tgz#fc900404660aa107dccd0ca4c9c8e918187ec5aa"
+
 timers-ext@0.1, timers-ext@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/timers-ext/-/timers-ext-0.1.2.tgz#61cc47a76c1abd3195f14527f978d58ae94c5204"
