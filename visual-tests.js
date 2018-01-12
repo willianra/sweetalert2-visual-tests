@@ -32,11 +32,13 @@ async function run (testCase) {
     case 'input-type-text':
       await page.click('#input-text button')
       await page.type('.swal2-input', 'Hola!')
+      await page.focus('.swal2-confirm')
       break
     case 'input-type-email-invalid':
       await page.click('#input-email button')
       await page.type('.swal2-input', 'invalid email')
       await page.click('.swal2-confirm')
+      await page.focus('.swal2-confirm')
       break
     case 'input-type-email-valid':
       await page.click('#input-email button')
@@ -47,6 +49,7 @@ async function run (testCase) {
       await page.click('#input-url button')
       await page.type('.swal2-input', 'invalid URL')
       await page.click('.swal2-confirm')
+      await page.focus('.swal2-confirm')
       break
     case 'input-type-url-valid':
       await page.click('#input-url button')
@@ -56,9 +59,11 @@ async function run (testCase) {
     case 'input-type-password':
       await page.click('#input-password button')
       await page.type('.swal2-input', 'passw0rd')
+      await page.focus('.swal2-confirm')
       break
     case 'input-type-textarea':
       await page.click('#input-textarea button')
+      await page.focus('.swal2-confirm')
       break
     case 'input-type-select':
       await page.click('#input-select button')
@@ -121,15 +126,21 @@ async function run (testCase) {
       break
     case 'chaining-modals-step1':
       await page.click('#chaining-modals button')
+      await page.type('.swal2-input', '1')
+      await page.focus('.swal2-confirm')
       break
     case 'chaining-modals-step2':
       await page.click('#chaining-modals button')
       await page.click('.swal2-confirm')
+      await page.type('.swal2-input', '2')
+      await page.focus('.swal2-confirm')
       break
     case 'chaining-modals-step3':
       await page.click('#chaining-modals button')
       await page.click('.swal2-confirm')
       await page.click('.swal2-confirm')
+      await page.type('.swal2-input', '3')
+      await page.focus('.swal2-confirm')
       break
     case 'chaining-modals-success':
       await page.click('#chaining-modals button')
@@ -229,10 +240,10 @@ async function runAll (testCase) {
   await run('ajax-request-success')
   await run('ajax-request-reject')
 
-  // await run('chaining-modals-step1')
-  // await run('chaining-modals-step2')
-  // await run('chaining-modals-step3')
-  // await run('chaining-modals-success')
+  await run('chaining-modals-step1')
+  await run('chaining-modals-step2')
+  await run('chaining-modals-step3')
+  await run('chaining-modals-success')
 }
 
 runAll().then(() => {
