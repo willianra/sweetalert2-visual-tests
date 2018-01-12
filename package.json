@@ -6,7 +6,7 @@
   "devDependencies": {
     "cli-color": "^1.2.0",
     "looks-same": "^3.3.0",
-    "puppeteer": "0.13.0",
+    "puppeteer": "1.0.0",
     "yargs": "^10.0.3"
   },
   "author": "Limon Monte <limon.monte@gmail.com> (https://limonte.github.io)",
