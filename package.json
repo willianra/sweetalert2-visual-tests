@@ -7,7 +7,7 @@
     "cli-color": "^1.2.0",
     "looks-same": "^3.3.0",
     "puppeteer": "1.0.0",
-    "sweetalert2": "7.5.0",
+    "sweetalert2": "7.6.3",
     "yargs": "^10.0.3"
   },
   "author": "Limon Monte <limon.monte@gmail.com> (https://limonte.github.io)",
