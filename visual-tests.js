@@ -157,8 +157,10 @@ async function run (testCase) {
   await page.waitFor(1000)
 
   // Remove Carbon Ads
-  await page.$eval('.swal2-modal .bsa-cpc', el => {
-    return el.remove()
+  await page.$eval('.swal2-footer', el => {
+    if (el.firstChild.className === 'bsa-cpc') {
+      return el.remove()
+    }
   })
 
   const swalContainerHandle = await page.$('.swal2-container')
