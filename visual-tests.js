@@ -158,7 +158,7 @@ async function run (testCase) {
 
   // Remove Carbon Ads
   await page.$eval('.swal2-footer', el => {
-    if (el.firstChild.className === 'bsa-cpc') {
+    if (el.firstChild && el.firstChild.className === 'bsa-cpc') {
       return el.remove()
     }
   })
