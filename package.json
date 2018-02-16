@@ -6,7 +6,7 @@
   "devDependencies": {
     "cli-color": "^1.2.0",
     "looks-same": "^3.3.0",
-    "puppeteer": "1.0.0",
+    "puppeteer": "1.1.0",
     "sweetalert2": "7.12.3",
     "yargs": "^11.0.0"
   },
