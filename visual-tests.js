@@ -107,6 +107,7 @@ async function run (testCase) {
       break
     case 'input-type-range':
       await page.click('#input-range button')
+      await page.keyboard.press('ArrowRight')
       break
     case 'bootstrap-buttons':
       await page.click('.bootstrap-buttons button')
