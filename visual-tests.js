@@ -103,6 +103,9 @@ async function run (page, testCase) {
       await page.click('#input-range button')
       await page.keyboard.press('ArrowRight')
       break
+    case 'rtl':
+      await page.click('#rtl button')
+      break
     case 'loading-state':
       await page.click('.timer button')
       await page.$eval('.swal2-confirm', el => {
@@ -254,6 +257,7 @@ async function runAll () {
   await run(page, 'input-type-checkbox-valid')
   await run(page, 'input-type-range')
 
+  await run(page, 'rtl')
   await run(page, 'loading-state')
 
   await run(page, 'bootstrap-buttons')
