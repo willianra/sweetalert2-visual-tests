@@ -3,6 +3,11 @@ dist: trusty
 node_js: 8.9
 sudo: required
 
+script:
+  - if [ "$TRAVIS_EVENT_TYPE" = "pull_request" ] || [ "$TRAVIS_BRANCH" = "master" ]; then
+      npm test;
+    fi
+
 notifications:
   email:
     on_success: never
