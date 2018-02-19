@@ -109,6 +109,13 @@ async function run (testCase) {
       await page.click('#input-range button')
       await page.keyboard.press('ArrowRight')
       break
+    case 'loading-state':
+      await page.click('.timer button')
+      await page.$eval('.swal2-confirm', el => {
+        el.style.animation = 'none'
+        el.style.WebKitAnimation = 'none'
+      })
+      break
     case 'bootstrap-buttons':
       await page.click('.bootstrap-buttons button')
       break
@@ -237,6 +244,8 @@ async function runAll (testCase) {
   await run('input-type-checkbox-invalid')
   await run('input-type-checkbox-valid')
   await run('input-type-range')
+
+  await run('loading-state')
 
   await run('bootstrap-buttons')
 
