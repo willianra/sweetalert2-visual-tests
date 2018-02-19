@@ -4,17 +4,11 @@ const clc = require('cli-color')
 const looksSame = require('looks-same')
 const puppeteer = require('puppeteer')
 
+const screensPath = `screens/`
+
 let code = 0
 
-async function run (testCase) {
-  const browser = await puppeteer.launch({
-    // debug mode, uncomment this to see the browser
-    // headless: false
-  })
-  const page = await browser.newPage()
-  const path = `screens/`
-  await page.goto('https://sweetalert2.github.io/')
-
+async function run (page, testCase) {
   switch (testCase) {
     case 'modal-type-success':
       await page.click('.showcase.sweet button')
@@ -189,25 +183,23 @@ async function run (testCase) {
 
   const screenName = `${testCase}`
   await page.screenshot({
-    path: `${path}${screenName}${argv.update ? '' : '-test'}.png`
+    path: `${screensPath}${screenName}${argv.update ? '' : '-test'}.png`
   })
-
-  await browser.close()
 
   if (argv.update) {
     console.log(clc.green('✓') + ` ${testCase}`)
   } else {
     await new Promise((resolve) => {
-      looksSame(`${path}${screenName}.png`, `${path}${screenName}-test.png`, (error, equal) => {
+      looksSame(`${screensPath}${screenName}.png`, `${screensPath}${screenName}-test.png`, (error, equal) => {
         error && console.log(error)
         console.log(
           (equal ? clc.green('✓') : clc.red('✖')) + ` ${testCase}`
         )
         if (!equal) {
           looksSame.createDiff({
-            reference: `${path}${screenName}.png`,
-            current: `${path}${screenName}-test.png`,
-            diff: `${path}${screenName}-diff.png`,
+            reference: `${screensPath}${screenName}.png`,
+            current: `${screensPath}${screenName}-test.png`,
+            diff: `${screensPath}${screenName}-diff.png`,
             highlightColor: '#ff0000' // color to highlight the differences
           }, (error) => {
             error && console.log(error)
@@ -218,44 +210,63 @@ async function run (testCase) {
       })
     })
   }
+
+  await page.setViewport({
+    width: 800,
+    height: 600
+  })
+  const windowHandle = await page.evaluateHandle(() => Promise.resolve(window))
+  await page.evaluate(window => {
+    return window.swal.close()
+  }, windowHandle)
+  await page.waitFor(300)
 }
 
-async function runAll (testCase) {
-  await run('modal-type-success')
-  await run('modal-type-error')
-  await run('modal-type-question')
+async function runAll () {
+  const browser = await puppeteer.launch({
+    // debug mode, uncomment this to see the browser
+    // headless: false
+  })
+  const page = await browser.newPage()
+  await page.goto('https://sweetalert2.github.io/')
 
-  await run('long-text')
+  await run(page, 'modal-type-success')
+  await run(page, 'modal-type-error')
+  await run(page, 'modal-type-question')
 
-  await run('input-type-text')
-  await run('input-type-email-invalid')
-  await run('input-type-email-valid')
-  await run('input-type-url-invalid')
-  await run('input-type-url-valid')
-  await run('input-type-password')
-  await run('input-type-textarea')
-  await run('input-type-select')
-  await run('input-type-select-invalid')
-  await run('input-type-select-valid')
-  await run('input-type-radio')
-  await run('input-type-radio-invalid')
-  await run('input-type-radio-valid')
-  await run('input-type-checkbox')
-  await run('input-type-checkbox-invalid')
-  await run('input-type-checkbox-valid')
-  await run('input-type-range')
+  await run(page, 'long-text')
 
-  await run('loading-state')
+  await run(page, 'input-type-text')
+  await run(page, 'input-type-email-invalid')
+  await run(page, 'input-type-email-valid')
+  await run(page, 'input-type-url-invalid')
+  await run(page, 'input-type-url-valid')
+  await run(page, 'input-type-password')
+  await run(page, 'input-type-textarea')
+  await run(page, 'input-type-select')
+  await run(page, 'input-type-select-invalid')
+  await run(page, 'input-type-select-valid')
+  await run(page, 'input-type-radio')
+  await run(page, 'input-type-radio-invalid')
+  await run(page, 'input-type-radio-valid')
+  await run(page, 'input-type-checkbox')
+  await run(page, 'input-type-checkbox-invalid')
+  await run(page, 'input-type-checkbox-valid')
+  await run(page, 'input-type-range')
 
-  await run('bootstrap-buttons')
+  await run(page, 'loading-state')
 
-  await run('ajax-request-success')
-  await run('ajax-request-reject')
+  await run(page, 'bootstrap-buttons')
 
-  await run('chaining-modals-step1')
-  await run('chaining-modals-step2')
-  await run('chaining-modals-step3')
-  await run('chaining-modals-success')
+  await run(page, 'ajax-request-success')
+  await run(page, 'ajax-request-reject')
+
+  await run(page, 'chaining-modals-step1')
+  await run(page, 'chaining-modals-step2')
+  await run(page, 'chaining-modals-step3')
+  await run(page, 'chaining-modals-success')
+
+  await browser.close()
 }
 
 runAll().then(() => {
