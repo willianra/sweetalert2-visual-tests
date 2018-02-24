@@ -1,3 +1,4 @@
 node_modules
+yarn.lock
 screens/*-test.png
 screens/*-diff.png
