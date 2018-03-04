@@ -1,4 +1,3 @@
-const fs = require('fs')
 const argv = require('yargs').argv
 const clc = require('cli-color')
 const looksSame = require('looks-same')
@@ -280,7 +279,7 @@ async function initBrowserAndRunTests () {
   testCasePrefix = '0.5rem-'
   const documentHandle = await page.evaluateHandle('document')
   await page.evaluate(document => {
-    return document.documentElement.style.fontSize = '0.5rem'
+    document.documentElement.style.fontSize = '0.5rem'
   }, documentHandle)
 
   await runAllTests()
