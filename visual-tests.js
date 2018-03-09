@@ -10,13 +10,13 @@ let code = 0
 
 async function run (testCase) {
   switch (testCase) {
-    case 'modal-type-success':
+    case 'type-success':
       await page.click('.showcase.sweet button')
       break
-    case 'modal-type-question':
+    case 'type-question':
       await page.click('.title-text button')
       break
-    case 'modal-type-error':
+    case 'type-error':
       await page.click('.error button')
       break
     case 'long-text':
@@ -105,6 +105,7 @@ async function run (testCase) {
       break
     case 'rtl':
       await page.click('#rtl button')
+      await page.waitFor(500)
       break
     case 'loading-state':
       await page.click('.timer button')
@@ -158,9 +159,6 @@ async function run (testCase) {
       break
   }
 
-  await page.mouse.move(0, 0)
-  await page.waitFor(1000)
-
   // Remove Carbon Ads
   await page.$eval('.swal2-footer', el => {
     if (el.firstChild && el.firstChild.className === 'bsa-cpc') {
@@ -173,16 +171,18 @@ async function run (testCase) {
     swalContainer.style.padding = 0
   }, swalContainerHandle)
 
-  const swalModalHandle = await page.$('.swal2-modal')
-  const swalModalSize = await page.evaluate((swalModal) => {
-    swalModal.style.borderRadius = 0
+  const swalPopupHandle = await page.$('.swal2-popup')
+  const swalPopupSize = await page.evaluate((swalPopup) => {
+    swalPopup.style.borderRadius = 0
     return {
-      width: swalModal.clientWidth,
-      height: swalModal.clientHeight
+      width: swalPopup.clientWidth,
+      height: swalPopup.clientHeight
     }
-  }, swalModalHandle)
+  }, swalPopupHandle)
+  await page.setViewport(swalPopupSize)
 
-  await page.setViewport(swalModalSize)
+  await page.mouse.move(0, 0)
+  await page.waitFor(1000)
 
   const screenName = `${testCase}`
   const screensPath = `screens/${testCasePrefix}${screenName}`
@@ -227,9 +227,9 @@ async function run (testCase) {
 }
 
 async function runAllTests () {
-  await run('modal-type-success')
-  await run('modal-type-error')
-  await run('modal-type-question')
+  await run('type-success')
+  await run('type-error')
+  await run('type-question')
 
   await run('long-text')
 
