@@ -285,6 +285,21 @@ async function initBrowserAndRunTests () {
 
   await runAllTests()
 
+  // reset font-size to 1rem
+  await page.evaluate(document => {
+    document.documentElement.style.fontSize = '1rem'
+  }, documentHandle)
+
+  // toasts
+  testCasePrefix = 'toast-'
+  const windowHandle = await page.evaluateHandle(() => window)
+  await page.evaluate(window => {
+    window.swal.setDefaults({toast: true})
+    window.document.body.style.overflow = 'hidden'
+  }, windowHandle)
+
+  await runAllTests()
+
   await browser.close()
 }
 
