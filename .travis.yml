@@ -9,5 +9,5 @@ script:
     fi
 
 notifications:
-  email:
-    on_success: never
+  webhooks: https://www.travisbuddy.com/
+  on_success: never
