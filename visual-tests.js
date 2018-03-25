@@ -1,4 +1,3 @@
-const fs = require('fs')
 const argv = require('yargs').argv
 const clc = require('cli-color')
 const looksSame = require('looks-same')
@@ -159,9 +158,6 @@ async function run (testCase) {
       break
   }
 
-  await page.mouse.move(0, 0)
-  await page.waitFor(1000)
-
   // Remove Carbon Ads
   await page.$eval('.swal2-footer', el => {
     if (el.firstChild && el.firstChild.className === 'bsa-cpc') {
@@ -184,6 +180,9 @@ async function run (testCase) {
   }, swalModalHandle)
 
   await page.setViewport(swalModalSize)
+
+  await page.mouse.move(0, 0)
+  await page.waitFor(1000)
 
   const screenName = `${testCase}`
   const screensPath = `screens/${testCasePrefix}${screenName}`
